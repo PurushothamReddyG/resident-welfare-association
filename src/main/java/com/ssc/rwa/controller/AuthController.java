@@ -1,6 +1,8 @@
 package com.ssc.rwa.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,9 +38,11 @@ public class AuthController {
 
 	@PostMapping("/register")
 	@Operation(summary = "Register a new user")
-	public ResponseEntity<String> register(@RequestBody User user) {
+	public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
+		Map<String, String> response = new HashMap<>();
 		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-			return ResponseEntity.badRequest().body("User already exists");
+			response.put("message", "User already exists");
+			return ResponseEntity.badRequest().body(response);
 		}
 
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -48,14 +52,15 @@ public class AuthController {
 		}
 
 		userRepository.save(user);
-		return ResponseEntity.ok("User registered successfully");
+		response.put("message", "User registered successfully");
+		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/login")
 	@Operation(summary = "Login and get JWT token")
 	public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 		User user = userRepository.findByEmail(request.getEmail())
-			.orElseThrow(() -> new RuntimeException("Invalid email or password"));
+				.orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
 		if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
 			return ResponseEntity.status(401).body("Invalid credentials");
