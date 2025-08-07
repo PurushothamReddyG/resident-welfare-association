@@ -1,5 +1,6 @@
 com\ssc\rwa\exception\UserNotFoundException.class
 com\ssc\rwa\model\Role.class
+com\ssc\rwa\config\CorsConfig.class
 com\ssc\rwa\model\Villa.class
 com\ssc\rwa\dto\AuthResponse.class
 com\ssc\rwa\security\SecurityConfig.class
@@ -20,6 +21,7 @@ com\ssc\rwa\payload\AuthResponse.class
 com\ssc\rwa\service\VillaService.class
 com\ssc\rwa\security\JwtAuthenticationFilter.class
 com\ssc\rwa\dto\LoginRequest.class
+com\ssc\rwa\config\CorsConfig$1.class
 com\ssc\rwa\security\JwtService.class
 com\ssc\rwa\controller\AuthController.class
 com\ssc\rwa\payload\AuthRequest.class

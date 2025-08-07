@@ -52,12 +52,12 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    // 4. Security Filter Chain with CORS enabled
+    // 4. Security Filter Chain
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/api/v1/add-villa-details").hasRole("ASSOCIATION_MEMBER")
@@ -70,16 +70,19 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 5. CORS Configuration Source
+    // 5. CORS Configuration
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
-        // 🔁 Replace with specific origins in production
-        config.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:8080"));
+        
+        config.setAllowedOrigins(List.of(
+            "http://localhost:4200",
+            "http://localhost:8080",
+            "https://villa-management-ui.onrender.com" // ✅ Render deployment
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setAllowCredentials(true); // for cookies and Authorization headers
+        config.setAllowCredentials(true); // for sending cookies or Authorization headers
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

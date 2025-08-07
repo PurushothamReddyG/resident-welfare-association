@@ -8,6 +8,7 @@ F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\
 F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\config\SwaggerConfig.java
 F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\serviceImpl\VillaServiceImpl.java
 F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\security\SecurityConfig.java
+F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\config\CorsConfig.java
 F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\service\VillaService.java
 F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\model\User.java
 F:\new-codebase\projects\resident-welfare-association\src\main\java\com\ssc\rwa\controller\AuthController.java
