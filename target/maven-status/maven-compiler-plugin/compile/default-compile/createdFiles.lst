@@ -1,3 +1,4 @@
+com\ssc\rwa\serviceImpl\EmailServiceImpl.class
 com\ssc\rwa\exception\UserNotFoundException.class
 com\ssc\rwa\model\Role.class
 com\ssc\rwa\config\CorsConfig.class
@@ -8,6 +9,8 @@ com\ssc\rwa\ResidentWelfareAssociationApplication.class
 com\ssc\rwa\controller\VillaController.class
 com\ssc\rwa\config\CorsFilter.class
 com\ssc\rwa\exception\ResourceNotFoundException.class
+com\ssc\rwa\model\VerificationToken.class
+com\ssc\rwa\serviceImpl\UserServiceImpl.class
 com\ssc\rwa\model\Villa$VillaBuilder.class
 com\ssc\rwa\security\CustomUserDetailsService.class
 com\ssc\rwa\repo\UserRepository.class
@@ -21,10 +24,15 @@ com\ssc\rwa\payload\AuthResponse.class
 com\ssc\rwa\service\VillaService.class
 com\ssc\rwa\security\JwtAuthenticationFilter.class
 com\ssc\rwa\dto\LoginRequest.class
+com\ssc\rwa\service\EmailService.class
+com\ssc\rwa\config\AppConfig.class
 com\ssc\rwa\config\CorsConfig$1.class
+com\ssc\rwa\repo\TokenRepository.class
 com\ssc\rwa\security\JwtService.class
 com\ssc\rwa\controller\AuthController.class
 com\ssc\rwa\payload\AuthRequest.class
 com\ssc\rwa\model\User$UserBuilder.class
 com\ssc\rwa\security\JwtUtil.class
+com\ssc\rwa\service\UserService.class
+com\ssc\rwa\dto\UserRegistrationRequest.class
 com\ssc\rwa\repo\VillaRepository.class

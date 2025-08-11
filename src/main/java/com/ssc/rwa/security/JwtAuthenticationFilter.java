@@ -10,6 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,20 +40,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 
 		jwt = authHeader.substring(7);
-		username = jwtService.extractUsername(jwt);
+		
+		try {
+			username = jwtService.extractUsername(jwt);
 
-		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			var userDetails = userDetailsService.loadUserByUsername(username);
+			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				var userDetails = userDetailsService.loadUserByUsername(username);
 
-			if (jwtService.isTokenValid(jwt, userDetails)) {
-				var authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
-						userDetails.getAuthorities());
-				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(authToken);
+				if (jwtService.isTokenValid(jwt, userDetails)) {
+					var authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+							userDetails.getAuthorities());
+					authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(authToken);
+				}
 			}
+
+			filterChain.doFilter(request, response);
+
+		} catch (ExpiredJwtException ex) {
+			// Token expired, respond with 401 and error JSON
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.setContentType("application/json");
+			response.getWriter().write("{\"error\": \"Token expired, please login again.\"}");
 		}
-
-		filterChain.doFilter(request, response);
 	}
-
 }

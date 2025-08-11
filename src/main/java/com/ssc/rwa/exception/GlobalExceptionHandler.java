@@ -16,17 +16,13 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	// Handle @Valid validation errors
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
-		Map<String, String> errors = new HashMap<>();
-
-		ex.getBindingResult()
-			.getFieldErrors()
-			.forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
-
-		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-	}
+    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> 
+            errors.put(error.getField(), error.getDefaultMessage()));
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
 
 	// Handle custom ResourceNotFoundException
 	@ExceptionHandler(ResourceNotFoundException.class)

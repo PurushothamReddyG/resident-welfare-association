@@ -1,12 +1,16 @@
 package com.ssc.rwa.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class LoginRequest {
 
-	private String email;
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email is mandatory")
+    private String email;
 
-	private String password;
-
+    @NotBlank(message = "Password is mandatory")
+    private String password;
 }
